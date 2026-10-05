@@ -10,7 +10,7 @@ from flask import Flask, request, jsonify, render_template, g
 from werkzeug.security import generate_password_hash, check_password_hash
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(os.environ.get("DATA_DIR", BASE_DIR), "pesaflow.db")
+DB_PATH = os.path.join(BASE_DIR, "pesaflow.db")
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
