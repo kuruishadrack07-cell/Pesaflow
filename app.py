@@ -37,10 +37,10 @@ def tier_fee(amount, tiers):
 
 def get_db():
     if "db" not in g:
+        db_dir = os.path.dirname(DB_PATH)
+        if db_dir:
+            os.makedirs(db_dir, exist_ok=True)
         g.db = sqlite3.connect(DB_PATH)
-        g.db.row_factory = sqlite3.Row
-        g.db.execute("PRAGMA foreign_keys = ON")
-    return g.db
 
 
 @app.teardown_appcontext
