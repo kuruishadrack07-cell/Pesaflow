@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#00A651" />
+<title>PesaFlow — Mobile Money</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+<div class="device" id="device">
+  <div class="statusbar">
+    <span id="clock">9:41</span>
+    <span class="sb-right">
+      <svg viewBox="0 0 20 12" width="17" height="11"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+      <svg viewBox="0 0 26 12" width="24" height="11"><rect x="0.5" y="0.5" width="20" height="11" rx="3" fill="none" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="15" height="8" rx="2"/><rect x="22" y="4" width="3" height="4" rx="1.5" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="app" id="app">
+    <section class="screen splash-screen" id="s-splash" data-screen>
+      <div class="splash">
+        <div class="logo-mark big">P</div>
+        <h1>PesaFlow</h1>
+        <p>Money that moves with you</p>
+        <div class="loader"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="s-auth" data-screen>
+      <div class="pad">
+        <div class="brand"><div class="logo-mark">P</div><span>PesaFlow</span></div>
+        <h2 class="h1">Welcome back</h2>
+        <p class="sub">Sign in with the phone number you registered.</p>
+        <label class="field">
+          <span>Phone number</span>
+          <div class="input-row">
+            <span class="prefix">KE +254</span>
+            <input id="loginPhone" type="tel" inputmode="numeric" placeholder="712 345 678" />
+          </div>
+        </label>
+        <label class="field">
+          <span>PIN</span>
+          <input id="loginPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" />
+        </label>
+        <button class="btn primary" id="btnLogin">Sign in</button>
+        <p class="center muted mt16">New here? <a href="#" data-go="s-register" class="link">Create an account</a></p>
+        <div class="hint-card">
+          <strong>Demo accounts</strong>
+          <p><code>0712345678</code> · PIN <code>1234</code> — Amina Wanjiru</p>
+          <p><code>0722111222</code> · PIN <code>1234</code> — Brian Otieno</p>
+          <p><code>0733444555</code> · PIN <code>1234</code> — Cynthia Mwangi</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s-register" data-screen>
+      <div class="pad">
+        <button class="backbar" data-go="s-auth">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Back
+        </button>
+        <h2 class="h1">Create your wallet</h2>
+        <p class="sub">It takes less than a minute. No paperwork.</p>
+        <label class="field"><span>Full name</span><input id="regName" type="text" placeholder="e.g. Jane Wanjiku" /></label>
+        <label class="field">
+          <span>Phone number</span>
+          <div class="input-row">
+            <span class="prefix">KE +254</span>
+            <input id="regPhone" type="tel" inputmode="numeric" placeholder="712 345 678" />
+          </div>
+        </label>
+        <div class="grid2">
+          <label class="field"><span>Choose PIN</span><input id="regPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" /></label>
+          <label class="field"><span>Confirm PIN</span><input id="regPin2" type="password" inputmode="numeric" maxlength="4" placeholder="••••" /></label>
+        </div>
+        <p class="fineprint">By continuing you agree to the Terms of Service. This is a demo — no real money is involved.</p>
+        <button class="btn primary" id="btnRegister">Create account</button>
+      </div>
+    </section>
+
+    <section class="screen tabbed" id="s-home" data-screen>
+      <header class="topbar">
+        <div class="who">
+          <div class="avatar" id="homeAvatar">A</div>
+          <div>
+            <p class="tiny muted" id="greeting">Good morning</p>
+            <h3 id="homeName">—</h3>
+          </div>
+        </div>
+        <button class="icon-btn" data-go="s-notifications" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="badge hidden" id="bellBadge"></span>
+        </button>
+      </header>
+      <div class="balance-card">
+        <p class="tiny">Available balance</p>
+        <h1 class="balance" id="homeBalance">KES 0.00</h1>
+        <p class="tiny phone" id="homePhone">—</p>
+        <div class="balance-actions">
+          <button data-go="s-send"><span class="ba-icon"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>Send</button>
+          <button data-go="s-receive"><span class="ba-icon"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span>Receive</button>
+          <button data-go="s-deposit"><span class="ba-icon"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Deposit</button>
+          <button data-go="s-withdraw"><span class="ba-icon"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></span>Withdraw</button>
+        </div>
+      </div>
+      <div class="section-head"><h3>Recent activity</h3><button class="link" data-go="s-history">See all</button></div>
+      <div id="homeTxList" class="tx-list"></div>
+    </section>
+
+    <section class="screen" id="s-send" data-screen>
+      <div class="pad">
+        <button class="backbar" data-back>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Send money
+        </button>
+        <div class="amount-block">
+          <p class="tiny muted">Amount</p>
+          <div class="amount-input"><span>KES</span><input id="sendAmount" type="tel" inputmode="decimal" placeholder="0" /></div>
+          <p class="tiny muted" id="sendFeeHint">Transaction fee: KES 0.00</p>
+        </div>
+        <label class="field">
+          <span>Recipient phone number</span>
+          <div class="input-row"><span class="prefix">+254</span><input id="sendPhone" type="tel" inputmode="numeric" placeholder="712 345 678" /></div>
+        </label>
+        <div id="sendResolved" class="resolved hidden"></div>
+        <label class="field"><span>Reason <em class="muted">(optional)</em></span><input id="sendNote" type="text" placeholder="e.g. Lunch money" maxlength="60" /></label>
+        <div class="summary" id="sendSummary">
+          <div class="row between"><span>Amount</span><b id="sumAmount">KES 0.00</b></div>
+          <div class="row between"><span>Fee</span><b id="sumFee">KES 0.00</b></div>
+          <div class="row between total"><span>Total</span><b id="sumTotal">KES 0.00</b></div>
+        </div>
+        <button class="btn primary" id="btnSendContinue">Continue</button>
+      </div>
+    </section>
+
+    <section class="screen" id="s-receive" data-screen>
+      <div class="pad">
+        <button class="backbar" data-back>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Receive money
+        </button>
+        <div class="qr-card">
+          <div class="qr-box" id="qrBox"></div>
+          <p class="tiny muted">Scan to pay me</p>
+          <h2 class="receive-phone" id="receivePhone">+254 —</h2>
+          <button class="btn ghost small" id="btnCopyPhone">Copy number</button>
+        </div>
+        <div class="section-head"><h3>Recent money in</h3></div>
+        <div id="receiveList" class="tx-list"></div>
+        <div class="hint-card mt24">
+          <strong>Demo only</strong>
+          <p>Tap below to simulate an incoming payment from a random PesaFlow user.</p>
+          <button class="btn ghost small mt8" id="btnSimulate">Simulate incoming payment</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s-deposit" data-screen>
+      <div class="pad">
+        <button class="backbar" data-back>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Deposit cash
+        </button>
+        <div class="amount-block">
+          <p class="tiny muted">Amount to deposit</p>
+          <div class="amount-input"><span>KES</span><input id="depAmount" type="tel" inputmode="decimal" placeholder="0" /></div>
+          <p class="tiny muted">Free — no charges on cash-in.</p>
+        </div>
+        <p class="label">Choose an agent near you</p>
+        <div class="agent-list" id="depAgents"></div>
+        <button class="btn primary" id="btnDeposit">Deposit</button>
+      </div>
+    </section>
+
+    <section class="screen" id="s-withdraw" data-screen>
+      <div class="pad">
+        <button class="backbar" data-back>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Withdraw cash
+        </button>
+        <div class="amount-block">
+          <p class="tiny muted">Amount to withdraw</p>
+          <div class="amount-input"><span>KES</span><input id="wdAmount" type="tel" inputmode="decimal" placeholder="0" /></div>
+          <p class="tiny muted" id="wdFeeHint">Withdrawal fee: KES 0.00 · Balance: KES 0.00</p>
+        </div>
+        <p class="label">Choose an agent near you</p>
+        <div class="agent-list" id="wdAgents"></div>
+        <button class="btn primary" id="btnWithdraw">Withdraw</button>
+      </div>
+    </section>
+
+    <section class="screen tabbed" id="s-history" data-screen>
+      <header class="topbar plain"><h2 class="h2">Transactions</h2></header>
+      <div class="filters" id="historyFilters">
+        <button class="chip on" data-filter="all">All</button>
+        <button class="chip" data-filter="in">Money in</button>
+        <button class="chip" data-filter="out">Money out</button>
+        <button class="chip" data-filter="send">Sent</button>
+        <button class="chip" data-filter="withdraw">Withdrawn</button>
+      </div>
+      <div id="historyList" class="tx-list pad-x"></div>
+    </section>
+
+    <section class="screen" id="s-detail" data-screen>
+      <div class="pad">
+        <button class="backbar" data-back>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Transaction details
+        </button>
+        <div id="detailBody"></div>
+      </div>
+    </section>
+
+    <section class="screen tabbed" id="s-notifications" data-screen>
+      <header class="topbar plain">
+        <h2 class="h2">Alerts</h2>
+        <button class="link" id="btnMarkRead">Mark all read</button>
+      </header>
+      <div id="notifList" class="notif-list pad-x"></div>
+    </section>
+
+    <section class="screen" id="s-support" data-screen>
+      <div class="pad">
+        <button class="backbar" data-back>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Help &amp; support
+        </button>
+        <h2 class="h1">Report a problem</h2>
+        <p class="sub">Disputed or failed transaction? Tell us what happened.</p>
+        <label class="field"><span>Transaction reference <em class="muted">(optional)</em></span><input id="supRef" type="text" placeholder="e.g. QK7X2M9P4" /></label>
+        <label class="field"><span>Subject</span><input id="supSubject" type="text" placeholder="e.g. Money not received" maxlength="80" /></label>
+        <label class="field"><span>Describe the issue</span><textarea id="supMessage" rows="4" placeholder="Give as much detail as you can…"></textarea></label>
+        <button class="btn primary" id="btnSubmitTicket">Submit report</button>
+        <div class="section-head"><h3>Your reports</h3></div>
+        <div id="ticketList"></div>
+      </div>
+    </section>
+
+    <section class="screen tabbed" id="s-profile" data-screen>
+      <div class="pad">
+        <div class="profile-head">
+          <div class="avatar xl" id="profAvatar">A</div>
+          <h2 id="profName">—</h2>
+          <p class="muted" id="profPhone">—</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><p class="tiny muted">Balance</p><b id="profBalance">KES 0</b></div>
+          <div class="stat"><p class="tiny muted">Transactions</p><b id="profTxCount">0</b></div>
+          <div class="stat"><p class="tiny muted">Member since</p><b id="profSince">—</b></div>
+        </div>
+        <div class="menu">
+          <button class="menu-item" data-go="s-support"><span class="mi-icon">🎧</span><span>Help &amp; support</span><span class="chev">›</span></button>
+          <button class="menu-item" id="btnChangePin"><span class="mi-icon">🔒</span><span>Change PIN</span><span class="chev">›</span></button>
+          <button class="menu-item" id="btnLimits"><span class="mi-icon">📊</span><span>Transaction limits</span><span class="chev">›</span></button>
+          <button class="menu-item danger" id="btnLogout"><span class="mi-icon">↩︎</span><span>Sign out</span><span class="chev">›</span></button>
+        </div>
+        <p class="fineprint center mt24">PesaFlow v1.0 · Demo MVP<br/>Not a licensed payment service.</p>
+      </div>
+    </section>
+  </div>
+
+  <nav class="tabbar hidden" id="tabbar">
+    <button data-go="s-home" data-tab="s-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</button>
+    <button data-go="s-history" data-tab="s-history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9 9 0 00-7.5 4"/><path d="M3 4v4h4"/><path d="M12 7v5l3 2"/></svg>History</button>
+    <button data-go="s-notifications" data-tab="s-notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>Alerts</button>
+    <button data-go="s-profile" data-tab="s-profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></svg>Profile</button>
+  </nav>
+
+  <div class="sheet" id="pinSheet">
+    <div class="sheet-inner">
+      <div class="sheet-grab"></div>
+      <h3 id="pinTitle">Enter your PIN</h3>
+      <p class="sub center" id="pinSub">Confirm the transaction</p>
+      <div class="dots" id="pinDots"><i></i><i></i><i></i><i></i></div>
+      <div class="keypad" id="keypad">
+        <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+        <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+        <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+        <button data-k="cancel" class="fn">Cancel</button>
+        <button data-k="0">0</button>
+        <button data-k="del" class="fn">DEL</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="toast-wrap" id="toastWrap"></div>
+</div>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
